@@ -71,6 +71,7 @@ app.get('/api/:name', (req,res) => {
   request(`https://botw-compendium.herokuapp.com/api/v2/entry/${req.params.name}`, function (error, response, body) {
     var parsed = JSON.parse(body);
     res.send(parsed)
+    
   }
 )
 })

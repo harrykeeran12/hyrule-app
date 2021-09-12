@@ -8,33 +8,58 @@ import './Search.css';
 
 
 const Search = () => {
-  const [Names, setNames] = useState({list: []})
+  const [Names, setNames] = useState({list: []});
+  const [Suggestions, setSuggestions] = useState([])
+  const [Text, setText] = useState('')
 
   async function getAllNames() {
     let temp = []
     const response = await axios.get('/api/names');
-    let names = response.data
+    let names = await response.data;
       /* setNames(response.data)  */
     for (let i = 0; i < names.length; i++) {
       temp.push(names[i]);
-        
     }
     /* setNames({list: ['hello', 'world']}) */
-    setNames({list: temp})
+    setNames({list: temp});
 
   }
-  getAllNames()
+
+  getAllNames();
  
+  function onTextChange(e){
+    const value = e.target.value;
+    if (value.length === 0){
+      setSuggestions([]);
+    }
+    else{
+      const regex = RegExp(`^${value}`, 'i');
+      const suggestions = Names.list.filter(v => regex.test(v))
+      setSuggestions(suggestions)
+      setText(value)
+      console.log(value) 
+    }
+    
+  }
   
-  
-  
-  return ( 
-    <p className='Searchbar'>
-      {Names.list.map(item => (
-      <p key={item.index}>{item}</p>
+  function renderSuggestions(){
+    if (Suggestions.length === 0) {
+      return null
+    }
+    return(
+      <ul>
+      {Suggestions.map((item) => (
+        <li key={item.index}>{item}</li>
+      ))}
+    </ul>
     )
-    )
-    }</p>
+  }
+  
+  return (
+    <div className='Searchbar'>
+    <input type='text' onChange={onTextChange} value={Text}></input>
+    {renderSuggestions()}
+    </div>
    );
 }
  

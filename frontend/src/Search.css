@@ -3,3 +3,9 @@
   max-width: 50vw;
   
 }
+.Searchbar ul li{
+  text-align: left;
+  border-bottom: 2px solid white;
+  padding: 5px;
+  list-style: none;
+}

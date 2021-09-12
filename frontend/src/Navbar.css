@@ -10,15 +10,16 @@ a:any-link{
   color: white;
 
 }
-li {
+
+.Navbar{
+  display: flex;
+  flex-direction: row;
+
+}
+.Navbar li {
   list-style: none;
   text-decoration: none;
   border-left: 1px solid white;
   border-right: 1px solid white;
   padding: 5px;
-}
-.Navbar{
-  display: flex;
-  flex-direction: row;
-
 }
